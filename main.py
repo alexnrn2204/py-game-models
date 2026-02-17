@@ -28,11 +28,12 @@ def main() -> None:
             if skill_created:
                 skill.save()
 
-        if value["guild"] is not None:
+        value_guild = value.get("guild", None)
+        if value_guild is not None:
             guild, guild_created = Guild.objects.get_or_create(
-                name=value["guild"]["name"],
+                name=value_guild["name"],
                 defaults={
-                    "description": value["guild"]["description"],
+                    "description": value_guild["description"],
                 })
             if guild_created:
                 guild.save()
@@ -47,6 +48,8 @@ def main() -> None:
                 "race": race,
                 "guild": guild,
             })
+        if player_created:
+            player.save()
 
 
 if __name__ == "__main__":
